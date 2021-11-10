@@ -4,9 +4,13 @@ import Container from "./Container";
 function App() {
   return (
     <Router>
-        <div className="App">
+       <div className="App">
+        <Switch>
+          <Route path="/">
             <Container/>
-        </div>
+          </Route>
+        </Switch>
+      </div>
     </Router>
   );
 }

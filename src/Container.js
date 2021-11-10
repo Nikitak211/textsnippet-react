@@ -1,25 +1,42 @@
 import { useState } from "react";
-import useFetch from "./useFetch";
+import axios from "axios";
 const txtgen = require('txtgen')
 
 const Container = () => {
     const [generate, setGenrate] = useState('')
-
-    const handleSubmit = (e) => {
+    const [text, setText] = useState('')
+    const url = "http://localhost:3000/"
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const score = { generate };
 
-        fetch('/', {
+        await fetch(url,{
             method: 'POST',
-            headers: { "Content-Type": 'application/json' },
-            body: JSON.stringify(score)
-        }).then((error) => {
-            console.log(error.message);
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(score) 
         })
+        .then(response => {
+            console.log(response)
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    
     }
 
-    const {data: context} = useFetch('/')
-    const textsnippet = txtgen.paragraph([context])
+    fetch(url)
+    .then(response => {
+        console.log(response)
+    })
+    .catch(error => {
+        console.log(error)
+    })
+
+    const textsnippet = txtgen.paragraph([generate])
+
+    
     return ( 
 
         <div className="container">
@@ -39,6 +56,7 @@ const Container = () => {
             <textarea 
                 placeholder="blablablabla"
                 className="container-text"
+                onChange={(e) => setText(e.target.value)}
                 value={textsnippet}>
                 
             </textarea>
