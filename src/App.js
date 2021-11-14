@@ -9,6 +9,9 @@ function App() {
           <Route path="/">
             <Container/>
           </Route>
+          <Route path="/data">
+            
+          </Route>
         </Switch>
       </div>
     </Router>
