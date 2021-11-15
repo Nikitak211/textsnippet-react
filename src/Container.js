@@ -3,6 +3,7 @@ import axios from "axios";
 const txtgen = require('txtgen')
 
 const Container = () => {
+    // Rename generate to "amountOfSnippets"
     const [generate, setGenrate] = useState('')
     const [text, setText] = useState('')
     const data = {generate}
@@ -19,14 +20,14 @@ const Container = () => {
             console.log("generated");
         })
     }
-        
-        axios.get(url)
-        .then(response => {
-            let data = response.data[0].generate
-            let textsnippet = txtgen.paragraph([data])
-            setText(textsnippet)
-        })
-        .catch(error => console.log(error))
+
+    axios.get(url)
+    .then(response => {
+        let data = response.data[0].generate
+        let textsnippet = txtgen.paragraph([data])
+        setText(textsnippet)
+    })
+    .catch(error => console.log(error))
     return ( 
 
         <div className="container">
@@ -35,9 +36,11 @@ const Container = () => {
                 type="text"
                 required
                 value={generate}
+                // Pretenses () aren't required if there is one argument (e)
                 onChange={(e) => setGenrate(e.target.value)}
                 className="container-search" />
 
+            {/* Make sure you use a button element */}
             <span 
                 className="container-button"
                 onClick={handleSubmit}>
