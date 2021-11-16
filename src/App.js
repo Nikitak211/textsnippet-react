@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Container from "./Container";
+import Homepage from "./Homepage";
 
 function App() {
   return (
@@ -7,13 +7,7 @@ function App() {
        <div className="App">
         <Switch>
           <Route path="/">
-            {/* Homepage would be more correct */}
-            <Container/>
-          </Route>
-
-          {/* API routes shouldn't be related to react and shouldn't be in switch */}
-          <Route path="/data">
-            
+            <Homepage/>
           </Route>
         </Switch>
       </div>

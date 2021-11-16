@@ -1,6 +1,13 @@
 const express = require('express');
 const app = express();
 
+const textSnippet = require('../api/textSnippet.js');
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.use('/api', textSnippet);
+
 app.get('/', (req, res) => {
     res.send('Hello World');
 })
@@ -11,5 +18,5 @@ app.all('*', (req, res) => {
 })
 
 // PORT and listen for the server.
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 7000;
 app.listen(PORT, () => console.log(`listening on port ${PORT}....`));
