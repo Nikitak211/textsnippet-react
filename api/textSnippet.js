@@ -11,20 +11,31 @@ router.post('/generateText', (req, res) => {
     const textsnippet = txtgen.paragraph([sum])
 
     // checks for letters and empty spaces, and bug preventing ..
-    // if (sum === "") {
-    //     res.send({ error: 'Number Of Paragraphs , field cannot be empty.' })
-    // } else if (isNaN(sum)) {
-    //     res.send({ error: 'Number Of Paragraphs , field must contain only numbers.' })
-    // } else if (sum > 10) {
-    //     res.send({ error: 'Number Of Paragraphs cannot be higher than 10.' })
-    // } else if (sum <= 0) {
-    //     res.send({ error: 'Number Of Paragraphs cannot be lower than 1.' })
-    // } else {
-    //     //sends data to the adress /generateText .
-    //     res.send(textsnippet);
-    // }
+    if (sum === "") {
+        res.send({ 
+            failure: true,
+            error: 'Number Of Paragraphs , field cannot be empty.' })
+    } else if (isNaN(sum)) {
+        res.send({ 
+            failure: true,
+            error: 'Number Of Paragraphs , field must contain only numbers.' })
+    } else if (sum > 10) {
+        res.send({ 
+            failure: true,
+            error: 'Number Of Paragraphs cannot be higher than 10.' })
+    } else if (sum <= 0) {
+        res.send({ 
+            failure: true,
+            error: 'Number Of Paragraphs cannot be lower than 1.' })
+    } else {
+        //sends data to the adress /generateText .
+        res.send({
+            success: true,
+            message: textsnippet
+        })
+    }
     console.log(sum)
-    res.send(textsnippet)
+    
 })
 
 module.exports = router;
