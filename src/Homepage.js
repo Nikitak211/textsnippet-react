@@ -3,49 +3,42 @@ import { useState, useEffect } from "react";
 const Homepage = () => {
     const [amountOfSnippets, setamountOfSnippets] = useState('')
     const [text, setText] = useState('')
-    const [faild, setFaild] = useState('')
+    const [failed, setFailed] = useState('')
     const url = "http://localhost:7000/api/generateText";
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
 
         let headers = new Headers();
 
         headers.append('Content-Type', 'application/json');
-        headers.append('Accept', 'application/json');
-        headers.append('Access-Control-Allow-Origin', '*');
-        headers.append('Access-Control-Allow-Credentials', 'true');
-        headers.append('GET', 'POST', 'OPTIONS');
 
-        const ree = amountOfSnippets;
-
-        fetch(url, {
+        await fetch(url, {
             method: 'POST',
             headers: headers,
-            body: JSON.stringify({ score: ree })
+            body: JSON.stringify({ score: amountOfSnippets })
         })
-        .then(response => {
-            if (!response.ok) {
-                throw Error('could not fetch the data')
-            }
-            return response.json()
-        })
-        .then(data => {
-            if (data.success) {
-                setText(data.message)
-                setFaild("")
-            }
-            if (data.failure) {
-                setFaild(data.error)
-                setText("")
-            }
-        })
-        .catch(err => {
-            if (err.name === 'AbortError') {
-                console.log('fetch aborted')
-            }
-            console.log(err.error)
-        })
+            .then(response => {
+                if (!response.ok) {
+                    throw Error('could not fetch the data')
+                }
+                return response.json()
+            })
+            .then(data => {
+                if (data.success) {
+                    setText(data.message)
+                    setFailed("")
+                }
+                if (data.failure) {
+                    setFailed(data.error)
+                    setText("")
+                }
+            })
+            .catch(err => {
+                if (err.name === 'AbortError') {
+                    console.log('fetch aborted')
+                }
+                console.log(err.error)
+            })
     }
 
     useEffect(() => {
@@ -58,9 +51,8 @@ const Homepage = () => {
             <textarea
                 className="inputs-form"
                 disabled
-                oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-                onChange={e => setFaild(e.target.value)}
-                value={faild}
+                onChange={e => setFailed(e.target.value)}
+                value={failed}
             ></textarea>
             <h2 className="container-title">TextSnippet</h2>
             <input
