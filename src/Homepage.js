@@ -54,7 +54,7 @@ const Homepage = () => {
                 onChange={e => setFailed(e.target.value)}
                 value={failed}
             ></textarea>
-            <h2 className="container-title">TextSnippet</h2>
+            <h2 className="container-title">TextSnippeting</h2>
             <input
                 type="text"
                 required

@@ -1,24 +1,24 @@
+const path = require("path");
 const express = require('express');
-const app = express();
 const cors = require('cors');
-
 const textSnippet = require('../api/textSnippet.js');
+const app = express();
+
 app.use(cors({
     origin: 'http://localhost:3000',
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use(express.static(path.join(__dirname, "..", "build")));
+app.use(express.static("src"));
+
 app.use('/api', textSnippet);
 
-app.get('/', (req, res) => {
-    res.send('Hello World');
-})
-
-// route to 404 errors.
-app.all('*', (req, res) => {
-    res.status(404).send('<h1>Page not found</h1>')
-})
+app.use((req, res, next) => {
+    res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+  });
 
 // PORT and listen for the server.
 const PORT = process.env.PORT || 7000;

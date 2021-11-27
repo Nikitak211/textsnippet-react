@@ -6,7 +6,7 @@ function App() {
     <Router>
        <div className="App">
         <Switch>
-          <Route path="/">
+          <Route path="/" >
             <Homepage/>
           </Route>
         </Switch>
