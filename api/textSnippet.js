@@ -38,8 +38,6 @@ router.post('/generateText', (req, res) => {
             message: textsnippet
         })
     }
-    console.log(sum)
-
 })
 
 module.exports = router;
