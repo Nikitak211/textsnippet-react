@@ -5,7 +5,7 @@
   letter-spacing: 2px;
 }
 body{
-  background: rgba(199, 190, 142, 0.541);
+  background: #272727;
   margin: 0 auto;
 }
 
@@ -63,5 +63,19 @@ body{
   resize: none;
   outline: none;
   border-radius: 0 0 15px 15px;
-
+}
+.container-text{
+  color: white;
+}
+.inputs-form{
+  color: rgb(223, 79, 79);
+  width: 75%;
+  position: absolute;
+  top: 3em;
+  left: 8em;
+  resize: none;
+  outline: none;
+  border: 1px solid transparent;
+  background:transparent;
+  font-size:11px;
 }

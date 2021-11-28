@@ -1,12 +1,16 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Container from "./Container";
+import Homepage from "./Homepage";
 
 function App() {
   return (
     <Router>
-        <div className="App">
-            <Container/>
-        </div>
+       <div className="App">
+        <Switch>
+          <Route path="/" >
+            <Homepage/>
+          </Route>
+        </Switch>
+      </div>
     </Router>
   );
 }
