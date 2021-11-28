@@ -4,7 +4,7 @@ const Homepage = () => {
     const [amountOfSnippets, setamountOfSnippets] = useState('')
     const [text, setText] = useState('')
     const [failed, setFailed] = useState('')
-    const url = "http://localhost:7000/api/generateText";
+    const url = "/api/generateText";
 
     const handleSubmit = async () => {
 
