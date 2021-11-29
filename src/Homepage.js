@@ -1,8 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
-let readSpeech = false;
-let speech = new SpeechSynthesisUtterance();
-speech.lang = "en";
 
 const Homepage = () => {
     const [amountOfSnippets, setamountOfSnippets] = useState('')
@@ -10,15 +7,25 @@ const Homepage = () => {
     const [failed, setFailed] = useState('')
     const [soundText, setSoundText] = useState('')
     const [button, setButton] = useState('')
-    const url = "/api/generateText";
+    const [muted, setMuted] = useState(false)
+
+    const url = useRef("/api/generateText");
+
+    const synth = useRef();
+
+    const speak = (text) => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        synth.current.speak(utterance);
+    }
 
     const textReader = async () => {
-        if (readSpeech) {
-            readSpeech = false;
+        if (muted) {
+            setMuted(false);
             setButton("On");
             setSoundText("speech Off")
         } else {
-            readSpeech = true;
+            setMuted(true);
             setButton("Off");
             setSoundText("speech On");
         }
@@ -30,7 +37,7 @@ const Homepage = () => {
 
         headers.append('Content-Type', 'application/json');
 
-        await fetch(url, {
+        await fetch(url.current, {
             method: 'POST',
             headers: headers,
             body: JSON.stringify({ score: amountOfSnippets })
@@ -45,8 +52,7 @@ const Homepage = () => {
                 if (data.success) {
                     setText(data.message)
                     setFailed("")
-                    speech.text = data.message;
-                    if (readSpeech) window.speechSynthesis.speak(speech)
+                    if (muted) speak(data.message);
                 }
                 if (data.failure) {
                     setFailed(data.error)
@@ -62,8 +68,11 @@ const Homepage = () => {
     }
 
     useEffect(() => {
-        setButton("Off");
-        setSoundText("speech On")
+        setButton("On");
+        setSoundText("speech Off")
+        if (typeof window !== 'object' || !window.speechSynthesis) return;
+        synth.current = window.speechSynthesis;
+
     }, [])
 
     return (
