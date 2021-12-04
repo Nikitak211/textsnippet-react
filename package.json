@@ -16,12 +16,12 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start-client": " SET NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
+    "start": " SET NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start": "nodemon ./server/server.js",
-    "server": "yarn run build && (cd server && yarn start)"
+    "server": "nodemon ./server/server.js",
+    "yarn": "yarn run build && (cd server && yarn start)"
   },
   "eslintConfig": {
     "extends": [

@@ -7,13 +7,13 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(express.static(path.join(__dirname, "..", "build")));
+app.use(express.static(path.join(__dirname, ".", "build")));
 app.use(express.static("src"));
 
 app.use('/api', textSnippet);
 
 app.use((req, res, next) => {
-    res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+    res.sendFile(path.join(__dirname, ".", "build", "index.html"));
   });
 
 // PORT and listen for the server.
