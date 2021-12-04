@@ -71,7 +71,6 @@ const Homepage = () => {
         setButton("On");
         setSoundText("speech Off")
         synth.current = window.speechSynthesis;
-
     }, [])
 
     return (
