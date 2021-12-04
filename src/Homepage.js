@@ -9,7 +9,7 @@ const Homepage = () => {
     const [button, setButton] = useState('')
     const [muted, setMuted] = useState(false)
 
-    const url = useRef("");
+    const url = '/api/generateText' ;
 
     const synth = useRef();
 
@@ -37,7 +37,7 @@ const Homepage = () => {
 
         headers.append('Content-Type', 'application/json');
 
-        await fetch('/api/generateText', {
+        await fetch(url , {
             method: 'POST',
             headers: headers,
             body: JSON.stringify({ score: amountOfSnippets })
