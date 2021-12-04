@@ -9,7 +9,7 @@ const Homepage = () => {
     const [button, setButton] = useState('')
     const [muted, setMuted] = useState(false)
 
-    const url = useRef("/api/generateText");
+    const url = useRef("");
 
     const synth = useRef();
 
@@ -37,7 +37,7 @@ const Homepage = () => {
 
         headers.append('Content-Type', 'application/json');
 
-        await fetch(url.current, {
+        await fetch('/api/generateText', {
             method: 'POST',
             headers: headers,
             body: JSON.stringify({ score: amountOfSnippets })
@@ -70,7 +70,6 @@ const Homepage = () => {
     useEffect(() => {
         setButton("On");
         setSoundText("speech Off")
-        if (typeof window !== 'object' || !window.speechSynthesis) return;
         synth.current = window.speechSynthesis;
 
     }, [])
@@ -84,7 +83,7 @@ const Homepage = () => {
                 onChange={e => setFailed(e.target.value)}
                 value={failed}
             ></textarea>
-            <h2 className="container-title">TextSnippeting</h2>
+            <h2 className="container-title">TextSnippet</h2>
             <button
                 className="sound-button"
                 onClick={textReader}
