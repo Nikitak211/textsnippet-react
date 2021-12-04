@@ -1,2 +1,3 @@
 web: node server/server.js
-react: react-scripts --openssl-legacy-provider start
+react: react-scripts start
+build: yarn run build && (cd server && yarn start)
