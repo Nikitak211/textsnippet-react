@@ -1,2 +1,2 @@
-front: react-scripts start
-back: yarn run build && (cd server && yarn start)
+react: react-scripts start
+build: yarn run build && (cd server && yarn start)
