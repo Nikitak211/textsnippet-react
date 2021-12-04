@@ -16,14 +16,15 @@
     "web-vitals": "^1.1.2"
   },
   "engines": {
-    "node": "14.x"
+    "node": "14.17.1",
+    "npm": "6.14.13"
   },
   "scripts": {
-    "react": " SET NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start": "nodemon ./server/server.js",
+    "server": "nodemon ./server/server.js",
     "yarn": "yarn run build && (cd server && yarn start)"
   },
   "eslintConfig": {
