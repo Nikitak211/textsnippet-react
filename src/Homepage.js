@@ -1,10 +1,35 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+
 
 const Homepage = () => {
     const [amountOfSnippets, setamountOfSnippets] = useState('')
     const [text, setText] = useState('')
     const [failed, setFailed] = useState('')
-    const url = "/api/generateText";
+    const [soundText, setSoundText] = useState('')
+    const [button, setButton] = useState('')
+    const [muted, setMuted] = useState(false)
+
+    const url = '/api/generateText' ;
+
+    const synth = useRef();
+
+    const speak = (text) => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        synth.current.speak(utterance);
+    }
+
+    const textReader = async () => {
+        if (muted) {
+            setMuted(false);
+            setButton("On");
+            setSoundText("speech Off")
+        } else {
+            setMuted(true);
+            setButton("Off");
+            setSoundText("speech On");
+        }
+    }
 
     const handleSubmit = async () => {
 
@@ -12,7 +37,7 @@ const Homepage = () => {
 
         headers.append('Content-Type', 'application/json');
 
-        await fetch(url, {
+        await fetch(url , {
             method: 'POST',
             headers: headers,
             body: JSON.stringify({ score: amountOfSnippets })
@@ -27,6 +52,7 @@ const Homepage = () => {
                 if (data.success) {
                     setText(data.message)
                     setFailed("")
+                    if (muted) speak(data.message);
                 }
                 if (data.failure) {
                     setFailed(data.error)
@@ -42,7 +68,9 @@ const Homepage = () => {
     }
 
     useEffect(() => {
-        console.log('Entry was made')
+        setButton("On");
+        setSoundText("speech Off")
+        synth.current = window.speechSynthesis;
     }, [])
 
     return (
@@ -54,7 +82,15 @@ const Homepage = () => {
                 onChange={e => setFailed(e.target.value)}
                 value={failed}
             ></textarea>
-            <h2 className="container-title">TextSnippeting</h2>
+            <h2 className="container-title">TextSnippet</h2>
+            <button
+                className="sound-button"
+                onClick={textReader}
+            >{button}</button>
+            <small
+                className="sound-text"
+                onChange={e => setSoundText(e.target.value)}
+            >{soundText}</small>
             <input
                 type="text"
                 required

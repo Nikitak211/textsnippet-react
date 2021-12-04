@@ -40,7 +40,7 @@ body{
   text-align: center; 
   background:rgba(168, 142, 120, 0.459);
   letter-spacing: 0;
-  color: rgb(158, 133, 113);
+  color: rgb(255, 185, 128);
   text-shadow: 0.5px 0.5px 0.1px black ; 
   font-size:12px;
   position: relative;
@@ -78,4 +78,21 @@ body{
   border: 1px solid transparent;
   background:transparent;
   font-size:11px;
+}
+.sound-text{
+  position: absolute;
+  top:8em;
+  left: 1em;
+  font-size:11px;
+  color: rgb(0, 0, 0);
+}
+.sound-button{
+  position: absolute;
+  width: 4em;
+  top: 6em;
+  left: 2em;
+  font-size:11px;
+  color: rgb(7, 7, 7);
+  border: 1px solid transparent;
+  border-radius: 5px;
 }
