@@ -40,7 +40,7 @@ const Homepage = () => {
         await fetch(url , {
             method: 'POST',
             headers: headers,
-            body: JSON.stringify({ score: amountOfSnippets })
+            body: JSON.stringify({ score: amountOfSnippets || 1})
         })
             .then(response => {
                 if (!response.ok) {
@@ -95,6 +95,7 @@ const Homepage = () => {
                 type="text"
                 required
                 value={amountOfSnippets}
+                placeholder={1}
                 onChange={e => setamountOfSnippets(e.target.value)}
                 className="container-search" />
 
