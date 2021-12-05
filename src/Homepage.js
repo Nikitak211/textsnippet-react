@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 
-
 const Homepage = () => {
     const [amountOfSnippets, setamountOfSnippets] = useState('')
     const [text, setText] = useState('')
@@ -8,7 +7,7 @@ const Homepage = () => {
     const [soundText, setSoundText] = useState('')
     const [button, setButton] = useState('')
     const [muted, setMuted] = useState(false)
-
+    const [className, setClassName] = useState('')
     const url = '/api/generateText' ;
 
     const synth = useRef();
@@ -24,10 +23,12 @@ const Homepage = () => {
             setMuted(false);
             setButton("On");
             setSoundText("speech Off")
+            setClassName("sound-text")
         } else {
             setMuted(true);
             setButton("Off");
             setSoundText("speech On");
+            setClassName("sound-text on")
         }
     }
 
@@ -70,6 +71,7 @@ const Homepage = () => {
     useEffect(() => {
         setButton("On");
         setSoundText("speech Off")
+        setClassName("sound-text")
         synth.current = window.speechSynthesis;
     }, [])
 
@@ -88,7 +90,7 @@ const Homepage = () => {
                 onClick={textReader}
             >{button}</button>
             <small
-                className="sound-text"
+                className={className}
                 onChange={e => setSoundText(e.target.value)}
             >{soundText}</small>
             <input
