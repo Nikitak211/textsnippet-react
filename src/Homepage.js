@@ -1,21 +1,18 @@
-import { useState, useEffect, useRef } from "react";
+import { useState} from "react";
 
 const Homepage = () => {
     const [amountOfSnippets, setamountOfSnippets] = useState('')
     const [text, setText] = useState('')
     const [failed, setFailed] = useState('')
-    const [soundText, setSoundText] = useState('')
-    const [button, setButton] = useState('')
+    const [soundText, setSoundText] = useState('speech Off')
+    const [button, setButton] = useState('On')
     const [muted, setMuted] = useState(false)
-    const [className, setClassName] = useState('')
-    const url = '/api/generateText' ;
-
-    const synth = useRef();
+    const [className, setClassName] = useState('sound-text')
 
     const speak = (text) => {
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'en-US';
-        synth.current.speak(utterance);
+        window.speechSynthesis.speak(utterance);
     }
 
     const textReader = async () => {
@@ -37,43 +34,38 @@ const Homepage = () => {
         let headers = new Headers();
 
         headers.append('Content-Type', 'application/json');
+        headers.append('Content-Type','application/x-www-form-urlencoded');
 
-        await fetch(url , {
+        const options = {
             method: 'POST',
             headers: headers,
-            body: JSON.stringify({ score: amountOfSnippets || 1})
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw Error('could not fetch the data')
-                }
-                return response.json()
-            })
-            .then(data => {
-                if (data.success) {
-                    setText(data.message)
-                    setFailed("")
-                    if (muted) speak(data.message);
-                }
-                if (data.failure) {
-                    setFailed(data.error)
-                    setText("")
-                }
-            })
-            .catch(err => {
-                if (err.name === 'AbortError') {
-                    console.log('fetch aborted')
-                }
-                console.log(err.error)
-            })
-    }
+        }
 
-    useEffect(() => {
-        setButton("On");
-        setSoundText("speech Off")
-        setClassName("sound-text")
-        synth.current = window.speechSynthesis;
-    }, [])
+        await fetch(`/api/generateText/?score=${amountOfSnippets || 1}` , options)
+        .then(response => {
+            if (!response.ok) {
+                throw Error('could not fetch the data')
+            }
+            return response.json()
+        })
+        .then(data => {
+            if (data.success) {
+                setText(data.message)
+                setFailed("")
+                if (muted) speak(data.message);
+            }
+            if (data.failure) {
+                setFailed(data.error)
+                setText("")
+            }
+        })
+        .catch(err => {
+            if (err.name === 'AbortError') {
+                console.log('fetch aborted')
+            }
+            console.log(err.error)
+        })
+    }
 
     return (
 
