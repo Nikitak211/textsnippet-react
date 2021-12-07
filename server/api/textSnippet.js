@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const txtgen = require('txtgen');
-router.get(`/generateText` , (req, res) => {
+router.get('/generateText' , (req, res) => {
 
     //gets the body of score from the fetch option.
     const sum = req.query.score;

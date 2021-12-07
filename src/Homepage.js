@@ -31,17 +31,7 @@ const Homepage = () => {
 
     const handleSubmit = async () => {
 
-        let headers = new Headers();
-
-        headers.append('Content-Type', 'application/json');
-        headers.append('Content-Type','application/x-www-form-urlencoded');
-
-        const options = {
-            method: 'GET',
-            headers: headers,
-        }
-
-        await fetch(`/api/generateText/?score=${amountOfSnippets || 1}` , options)
+        await fetch(`/api/generateText/?score=${amountOfSnippets || 1}`)
         .then(response => {
             if (!response.ok) {
                 throw Error('could not fetch the data')
