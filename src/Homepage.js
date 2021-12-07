@@ -37,7 +37,7 @@ const Homepage = () => {
         headers.append('Content-Type','application/x-www-form-urlencoded');
 
         const options = {
-            method: 'POST',
+            method: 'GET',
             headers: headers,
         }
 
