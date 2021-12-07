@@ -53,7 +53,7 @@ const Homepage = () => {
             if (err.name === 'AbortError') {
                 console.log('fetch aborted')
             }
-            console.log(err.error)
+            console.log(err)
         })
     }
 
