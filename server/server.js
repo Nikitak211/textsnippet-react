@@ -16,4 +16,6 @@ app.use((req, res, next) => {
 
 // PORT and listen for the server.
 const PORT = process.env.PORT || 7000;
-app.listen(PORT, () => console.log(`listening on port ${PORT}....`));
+app.listen(PORT,() => {
+    console.log(`listening on port ${PORT}....`)
+});
